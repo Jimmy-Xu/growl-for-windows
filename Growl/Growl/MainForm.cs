@@ -831,7 +831,7 @@ namespace Growl
 
         private void buttonClearHistory_Click(object sender, EventArgs e)
         {
-            this.historyManager.ClearHistory();
+            this.historyManager.ClearHistory(this.historyListView.FocusedItem);
             this.historyListView.SuspendLayout();
             this.historyListView.PastNotifications = this.historyManager.PastNotifications;
             this.historyListView.Draw();
@@ -1562,7 +1562,7 @@ namespace Growl
         {
             System.Windows.Forms.ListView view = (System.Windows.Forms.ListView)(sender);
             Growl.PastNotification pn = (Growl.PastNotification)(view.FocusedItem.Tag);
-            MessageBox.Show(pn.Notification.ApplicationName + "," + pn.ImageFile);
+            //MessageBox.Show(pn.Notification.ApplicationName + "," + pn.ImageFile);
         }
 
     }

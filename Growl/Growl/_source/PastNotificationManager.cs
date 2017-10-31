@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.IO;
+using System.Windows.Forms;
 
 namespace Growl
 {
@@ -74,10 +75,18 @@ namespace Growl
             }
         }
 
-        internal void ClearHistory()
+        internal void ClearHistory(ListViewItem focusedItem)
         {
-            DeleteHistory();
-            this.PastNotifications.Clear();
+            DeleteHistory(focusedItem);
+            if (focusedItem != null)
+            {
+                this.PastNotifications.Remove((Growl.PastNotification)(focusedItem.Tag));
+            }
+            else
+            {
+                this.PastNotifications.Clear(); 
+            }
+            
         }
 
         public List<PastNotification> PastNotifications
@@ -131,19 +140,28 @@ namespace Growl
             return pn;
         }
 
-        public static void DeleteHistory()
+        public static void DeleteHistory(ListViewItem focusedItem)
         {
-            string[] subfolders = System.IO.Directory.GetDirectories(HistoryFolder);
-            foreach (string subfolder in subfolders)
+            if (focusedItem != null)
             {
-                System.IO.Directory.Delete(subfolder, true);
+                string imageFile = ((Growl.PastNotification)(focusedItem.Tag)).ImageFile;
+                System.IO.File.Delete(imageFile.Replace(".img", ".notification"));
+                System.IO.File.Delete(imageFile);
             }
-            string[] files = System.IO.Directory.GetFiles(HistoryFolder);
-            if (files != null)
+            else 
             {
-                foreach (string file in files)
+                string[] subfolders = System.IO.Directory.GetDirectories(HistoryFolder);
+                foreach (string subfolder in subfolders)
                 {
-                    System.IO.File.Delete(file);
+                    System.IO.Directory.Delete(subfolder, true);
+                }
+                string[] files = System.IO.Directory.GetFiles(HistoryFolder);
+                if (files != null)
+                {
+                    foreach (string file in files)
+                    {
+                        System.IO.File.Delete(file);
+                    }
                 }
             }
         }

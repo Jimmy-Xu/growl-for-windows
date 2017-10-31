@@ -108,7 +108,7 @@ namespace Growl
                 SettingSaver sbSettingSaver = new SettingSaver(SUBSCRIPTIONS_SETTINGS_FILENAME, LegacyDeserializers.LegacyDeserializationHelper.OldSubscriptionHelper);
                 sbSettingSaver.Save(sbSettingSaver.Load());
 
-                PastNotificationManager.DeleteHistory();
+                PastNotificationManager.DeleteHistory(null);
 
                 Growl.Properties.Settings.Default.SettingsVersion = 2;
 
