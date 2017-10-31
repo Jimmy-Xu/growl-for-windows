@@ -946,6 +946,10 @@ to Twitter</value>
     <value>Title</value>
     <comment>History tab: Column header for Title column</comment>
   </data>
+  <data name="History_Columns_ImageFile" xml:space="preserve">
+    <value>ImageFile</value>
+    <comment>History tab: Column header for ImageFile column</comment>
+  </data>
   <data name="History_DetailsView" xml:space="preserve">
     <value>Details View</value>
     <comment>History tab: Details View context menu option</comment>

@@ -475,8 +475,13 @@ namespace Growl.UI
                         originHeader.Name = "ORIGIN";
                         originHeader.Text = Properties.Resources.History_Columns_Origin;
                         originHeader.Width = GetDesiredColumnWidth(originHeader.Name, y);
+                        ColumnHeader imageFileHeader = new ColumnHeader();
+                        imageFileHeader.Name = "IMAGEFILE";
+                        imageFileHeader.Text = Properties.Resources.History_Columns_ImageFile;
+                        imageFileHeader.Width = GetDesiredColumnWidth(imageFileHeader.Name, x);
 
-                        this.detailColumns = new ColumnHeader[] { titleHeader, textHeader, appNameHeader, dateHeader, originHeader };
+
+                        this.detailColumns = new ColumnHeader[] { titleHeader, textHeader, appNameHeader, dateHeader, originHeader, imageFileHeader };
                     }
 
                     this.Columns.Clear();
@@ -547,24 +552,27 @@ namespace Growl.UI
             ColumnHeader originHeader = new ColumnHeader();
             originHeader.Name = "ORIGIN";
             originHeader.Text = Properties.Resources.History_Columns_Origin;
+            ColumnHeader imageFileHeader = new ColumnHeader();
+            imageFileHeader.Name = "IMAGEFILE";
+            imageFileHeader.Text = Properties.Resources.History_Columns_ImageFile;
 
             ListViewItem[] items = new ListViewItem[40];
             for (int i = 0; i < 20; i++)
             {
-                ListViewItem lvi = new ListViewItem(new string[] { "item " + i.ToString(), "text", "app", "time", "origin" });
+                ListViewItem lvi = new ListViewItem(new string[] { "item " + i.ToString(), "text", "app", "time", "origin", "imageFile" });
                 lvi.Group = g1;
                 items[i] = lvi;
             }
             for (int i = 20; i < 40; i++)
             {
-                ListViewItem lvi = new ListViewItem(new string[] { "item " + i.ToString(), "text", "app", "time", "origin" });
+                ListViewItem lvi = new ListViewItem(new string[] { "item " + i.ToString(), "text", "app", "time", "origin", "imageFile" });
                 lvi.Group = g2;
                 items[i] = lvi;
             }
 
             this.HeaderStyle = ColumnHeaderStyle.Clickable;
 
-            this.Columns.AddRange(new ColumnHeader[] { titleHeader, textHeader, appNameHeader, dateHeader, originHeader });
+            this.Columns.AddRange(new ColumnHeader[] { titleHeader, textHeader, appNameHeader, dateHeader, originHeader, imageFileHeader });
             this.Groups.AddRange(new ListViewGroup[] { g1, g2 });
             this.Items.AddRange(items);
 
@@ -603,8 +611,8 @@ namespace Growl.UI
             string origin = (!String.IsNullOrEmpty(pn.Notification.OriginMachineName) ? pn.Notification.OriginMachineName : "Local Machine");
             string tooltipAppNameappName = Escape(String.Format("{0}{1}", pn.Notification.ApplicationName, (!String.IsNullOrEmpty(pn.Notification.OriginMachineName) ? String.Format("[{0}]", pn.Notification.OriginMachineName) : "")));
             string tooltip = String.Format("{0}\r\n{1}\r\n{4}: {2}\r\n{5}: {3}", pn.Notification.Title, pn.Notification.Description, tooltipAppNameappName, pn.Timestamp.ToString(), Properties.Resources.LiteralString_ReceivedFrom, Properties.Resources.LiteralString_ReceivedAt);
-
-            string[] items = new string[] { title, text, appName, pn.Timestamp.ToString(), origin };
+            string imageFile = pn.ImageFile;
+            string[] items = new string[] { title, text, appName, pn.Timestamp.ToString(), origin, imageFile };
             ListViewItem lvi = new ListViewItem(items, group);
             lvi.ToolTipText = tooltip;
             lvi.Tag = pn;

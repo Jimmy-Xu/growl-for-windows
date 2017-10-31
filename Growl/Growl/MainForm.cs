@@ -1557,5 +1557,13 @@ namespace Growl
         {
             this.controller.AutoPauseFullscreen = checkBoxFullscreenPause.Checked;
         }
+
+        private void historyListView_MouseClick(object sender, MouseEventArgs e)
+        {
+            System.Windows.Forms.ListView view = (System.Windows.Forms.ListView)(sender);
+            Growl.PastNotification pn = (Growl.PastNotification)(view.FocusedItem.Tag);
+            MessageBox.Show(pn.Notification.ApplicationName + "," + pn.ImageFile);
+        }
+
     }
 }
