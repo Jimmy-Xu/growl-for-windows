@@ -248,7 +248,11 @@ namespace Growl
 
             // HISTORY
             if (Properties.Settings.Default.HistoryView == View.Details.ToString())
+            {
                 this.historyListView.View = View.Details;
+                //this.historyListView.MultiSelect = true;
+                //this.historyListView.CheckBoxes = true;
+            }
             this.historyTrackBarTimer.Tick += new EventHandler(historyTrackBarTimer_Tick);
             this.historyDaysTrackBar.Minimum = HistoryListView.MIN_NUMBER_OF_DAYS;
             this.historyDaysTrackBar.Maximum = HistoryListView.MAX_NUMBER_OF_DAYS;
@@ -305,7 +309,7 @@ namespace Growl
             InitToolbarButtonAndPanel(this.toolbarButtonHistory, this.panelHistory);
             InitToolbarButtonAndPanel(this.toolbarButtonAbout, this.panelAbout);
             this.panelInitializing.Visible = false;
-            SwitchPanel(this.toolbarButtonGeneral);
+            SwitchPanel(this.toolbarButtonHistory);
             this.Refresh();
 
             this.initialized = true;
@@ -1564,6 +1568,25 @@ namespace Growl
             Growl.PastNotification pn = (Growl.PastNotification)(view.FocusedItem.Tag);
             //MessageBox.Show(pn.Notification.ApplicationName + "," + pn.ImageFile);
         }
+
+        private void historyListView_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                this.historyManager.ClearHistory(this.historyListView.FocusedItem);
+                this.historyListView.SuspendLayout();
+                this.historyListView.PastNotifications = this.historyManager.PastNotifications;
+                this.historyListView.Draw();
+                this.historyListView.ResumeLayout();
+
+                // Normally we shouldnt ever explicitly call GC.Collect(), but since the items in the History
+                // view could have been taking up a lot of memory, and this is a user-initiated event that 
+                // does not occur frequently, this is an OK place to force a collection.
+                Utility.WriteDebugInfo("History cleared. Force GC to clean up LOH");
+                ApplicationMain.ForceGC();               
+            }
+        }
+
 
     }
 }

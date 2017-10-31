@@ -1218,6 +1218,7 @@ namespace Growl
             this.historyListView.UseCustomToolTips = false;
             this.historyListView.View = System.Windows.Forms.View.Tile;
             this.historyListView.MouseClick += new System.Windows.Forms.MouseEventHandler(this.historyListView_MouseClick);
+            this.historyListView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.historyListView_KeyDown);
             // 
             // panelHistoryListViewBacker
             // 

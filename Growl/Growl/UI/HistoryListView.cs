@@ -823,6 +823,8 @@ namespace Growl.UI
             {
                 Draw(View.Details);
                 this.View = View.Details;
+                //this.MultiSelect = true;
+                //this.CheckBoxes = true;
                 Properties.Settings.Default.HistoryView = this.View.ToString();
                 Properties.Settings.Default.Save();
             }
@@ -833,6 +835,8 @@ namespace Growl.UI
             if (this.View != View.Tile)
             {
                 Draw(View.Tile);
+                //this.MultiSelect = false;
+                //this.CheckBoxes = false;
                 this.View = View.Tile;
                 Properties.Settings.Default.HistoryView = this.View.ToString();
                 Properties.Settings.Default.Save();
