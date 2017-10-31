@@ -95,6 +95,11 @@ namespace Growl.UI
             UpdateEndOfToday();
 
             this.ResumeLayout();
+
+            //sort by timestamp
+            this.lvcs.Type = ListViewColumnSorter.ComparisonType.Date;
+            this.lvcs.Order = SortOrder.Descending;
+            this.lvcs.ColumnToSort = 3;
         }
 
         void HistoryListView_KeyDown(object sender, KeyEventArgs e)
