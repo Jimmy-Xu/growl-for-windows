@@ -450,26 +450,26 @@ namespace Growl.UI
                 {
                     if (detailColumns == null)
                     {
-                        int w = 80;
-                        int y = 60;
-                        int x = (this.Width - (w * 2) - y - SCROLLBAR_WIDTH) / 2;
+                        int w = 60;
+                        int y = 40;
+                        int x = (this.Width - (y * 4) - w - SCROLLBAR_WIDTH) / 2;
 
                         ColumnHeader titleHeader = new ColumnHeader();
                         titleHeader.Name = "TITLE";
                         titleHeader.Text = Properties.Resources.History_Columns_Title;
-                        titleHeader.Width = GetDesiredColumnWidth(titleHeader.Name, x);
+                        titleHeader.Width = y;
                         ColumnHeader textHeader = new ColumnHeader();
                         textHeader.Name = "TEXT";
                         textHeader.Text = Properties.Resources.History_Columns_Text;
-                        textHeader.Width = GetDesiredColumnWidth(textHeader.Name, x);
+                        textHeader.Width = x;
                         ColumnHeader appNameHeader = new ColumnHeader();
                         appNameHeader.Name = "APPLICATION";
                         appNameHeader.Text = Properties.Resources.History_Columns_Application;
-                        appNameHeader.Width = GetDesiredColumnWidth(appNameHeader.Name, w);
+                        appNameHeader.Width = GetDesiredColumnWidth(appNameHeader.Name, y);
                         ColumnHeader dateHeader = new ColumnHeader();
                         dateHeader.Name = "TIMESTAMP";
                         dateHeader.Text = Properties.Resources.History_Columns_Timestamp;
-                        dateHeader.Width = GetDesiredColumnWidth(dateHeader.Name, w);
+                        dateHeader.Width = GetDesiredColumnWidth(dateHeader.Name, y);
                         dateHeader.Tag = DATETIME_COMPARISON_INDICATOR;
                         ColumnHeader originHeader = new ColumnHeader();
                         originHeader.Name = "ORIGIN";
@@ -478,8 +478,7 @@ namespace Growl.UI
                         ColumnHeader imageFileHeader = new ColumnHeader();
                         imageFileHeader.Name = "IMAGEFILE";
                         imageFileHeader.Text = Properties.Resources.History_Columns_ImageFile;
-                        imageFileHeader.Width = GetDesiredColumnWidth(imageFileHeader.Name, x);
-
+                        imageFileHeader.Width = y / 2;
 
                         this.detailColumns = new ColumnHeader[] { titleHeader, textHeader, appNameHeader, dateHeader, originHeader, imageFileHeader };
                     }
